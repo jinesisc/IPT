@@ -13,9 +13,6 @@
 | 2. The field | `field_on_axis`, `field_gradient` | On-axis field of a cylinder magnet, and its slope |
 | 3. One grain | `magnetization`, `magnetic_acceleration`, `pull_ratio` | M = 3K·B/μ₀ with K = χ/(χ+3), capped at Ms. Pull = M·\|dB/ds\| / ρ |
 
-The model stops at a single grain: it shows how hard the magnet pulls compared with
-gravity. Connecting that pull to the flow rate is the next layer.
-
 **Figures** (saved to `figures/`):
 1. Mass in the bottom bulb vs. time: a straight line, so the hourglass is a clock.
 2. Field strength and the gradient of B² vs. distance from the magnet.
@@ -23,13 +20,12 @@ gravity. Connecting that pull to the flow rate is the next layer.
 
 ## Assumed parameters: replace with real measurements
 
-Every number in the `Params` class of `model.py` is a placeholder until you replace it.
-Do them roughly in this order.
+Every number in the `Params` class of `model.py` is a placeholder until we replace it.
 
 **Sensitivity** says how much a wrong value distorts the result.
 **High** means a 10% error gives a much larger than 10% error.
 
-### A. Measure directly (ruler, calipers, scale)
+### A. Measure directly
 
 | Parameter | Default | What it is | How to measure | Sensitivity |
 |---|---|---|---|---|
@@ -76,14 +72,14 @@ the opening's shape: in [2], tilting the hole to vertical dropped C from 0.573 t
 
 ### Record what you measured
 
-When you replace a default, change the comment beside it in `model.py` to say where the
+When we replace a default, I'll change the comment beside it in `model.py` to say where the
 value came from, for example:
 
 ```python
 D: float = 4.6e-3   # measured with calipers, 2026-10-20, ±0.1 mm
 ```
 
-## Where the default values come from
+## Where the current default values come from
 
 | Value | Default | Source |
 |---|---|---|
@@ -112,6 +108,5 @@ Commit these, since they can't be regenerated.
 
 ## Coming next
 
-Layer 4 turns the pull on one grain into a change in flow rate
-(g_eff = g(1 + w·Bo_m)). Later layers add stickiness between grains, time-varying
-fields, and validity checks.
+Layer 4 turns the pull on one grain into a change in flow rate. Given enough time,
+later layers should add stickiness between grains, time-varying fields, and validity checks.

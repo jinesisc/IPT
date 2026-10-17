@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# PyCharm (keep shared project files, ignore personal ones)
+.idea/workspace.xml
+.idea/shelf/
+
+# Generated output: regenerate from code instead of committing
+problems/*/figures/
+
+# OS
+.DS_Store
+Thumbs.db

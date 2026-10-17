@@ -188,8 +188,11 @@ def self_tests() -> None:
     assert np.all(np.diff(field_on_axis(p, s)) < 0), "field should weaken with distance"
 
     # Layer 2: the coded slope matches a numerical slope of the field
-    numeric = np.gradient(field_on_axis(p, s), s)
-    assert np.allclose(field_gradient(p, s)[1:-1], numeric[1:-1], rtol=1e-3), "gradient formula"
+    # (slope from two points 1 micrometer either side, accurate for any magnet size)
+    h = 1e-6
+    s_mid = s[1:]
+    numeric = (field_on_axis(p, s_mid + h) - field_on_axis(p, s_mid - h)) / (2 * h)
+    assert np.allclose(field_gradient(p, s_mid), numeric, rtol=1e-5), "gradient formula"
 
     # Layer 3: far from the magnet (unsaturated), matches the closed form (3K / 2 mu0 rho) |d(B^2)/ds|
     far = np.array([0.06])

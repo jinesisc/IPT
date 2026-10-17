@@ -1,6 +1,6 @@
 
 """
-magnetic_hourglass.py — Model of a magnetic hourglass (layers 1-3)
+Model of a Magnetic Hourglass
 
 DESCRIPTION:
 An hourglass holds a mixture of ordinary sand and ferromagnetic (iron) grains.
@@ -13,7 +13,7 @@ This script builds up the physics in layers (currently three):
                                         and the magnet's pull on a single iron grain
 
 It stops at a single grain: it shows how hard the magnet pulls compared with
-gravity, but does not yet connect that pull to the flow rate (that is Layer 4).
+gravity, but does not yet connect that pull to the flow rate.
 
 COORDINATES: distance s is measured from the magnet's face, along its axis.
 All units are SI (m, kg, s, T, A/m).
@@ -258,14 +258,19 @@ def make_figures(outdir: Path = FIGURE_DIR) -> list[Path]:
 
 def summary(p: Params) -> None:
     W0 = beverloo(p)
-    print("\n=== Default setup ===")
-    print(f"orifice D = {p.D * 1e3:.1f} mm, grain d = {p.d * 1e3:.2f} mm, iron mass fraction w = {p.w:.0%}")
-    print(f"W0 (no field)            = {W0 * 1e3:.2f} g/s  -> empties {p.M_total * 1e3:.0f} g in {p.M_total / W0:.1f} s")
+    print("\n=== DEFAULT SETUP ===")
+
+    print(f"\norifice (D)             = {p.D * 1e3:.1f} mm")
+    print(f"grain (d)               = {p.d * 1e3:.2f} mm")
+    print(f"iron mass frac (w)      = {p.w:.0%}")
+
+    print(f"\nW0 (no field)            = {W0 * 1e3:.2f} g/s  -> empties {p.M_total * 1e3:.0f} g in {p.M_total / W0:.1f} s")
     print(f"\nMagnet at {p.gap * 1e3:.0f} mm from the orifice:")
     print(f"  field at orifice       = {field_on_axis(p, p.gap) * 1e3:.1f} mT")
     print(f"  pull / weight          = {pull_ratio(p, p.gap):.3f}")
     print(f"  grain saturated?       = {'yes' if is_saturated(p, p.gap) else 'no'}")
-    print(f"\nPull beats gravity within {distance_where_pull_equals_gravity(p) * 1e3:.1f} mm of the magnet face.")
+
+    print(f"\nMagnetic pull beats gravity within {distance_where_pull_equals_gravity(p) * 1e3:.1f} mm of the magnet face.")
 
 
 def main() -> None:
